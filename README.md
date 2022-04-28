@@ -1,1 +1,1 @@
-# ansible-packeges-exam2
+# exam2-ansible

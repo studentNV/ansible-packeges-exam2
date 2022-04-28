@@ -1,0 +1,4 @@
+---
+network_ansible_web:	network_ansible
+subnet_network_ansible: "172.21.27.0/24"
+gw_network_ansible:     "172.21.27.1"

@@ -1,0 +1,6 @@
+- name: Create a network
+  docker_network:
+    name: "{{ network_ansible_web }}"
+    ipam_config:
+      - subnet: "{{ subnet_network_ansible }}"
+        gateway:  "{{ gw_network_ansible }}"

@@ -1,0 +1,8 @@
+all:
+  children:
+    Nodes:
+      hosts:
+        web-exam:
+          ansible_host: 192.168.100.72
+          ansible_ssh_private_key_file: /var/lib/Jenkins/.ssh/id_rsa
+          ansible_user: Jenkins

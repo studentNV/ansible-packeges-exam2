@@ -1,0 +1,32 @@
+---
+- include_vars: ../../start_web_app/vars/main.yaml
+
+- include_vars: ../../create_net_docker/vars/main.yaml
+
+- name: Run tasks install and start docker
+  include_role:
+    name: install_and_start_docker
+
+- name: Run tasks create network
+  include_role:
+    name: create_net_docker
+
+- name: Template a file to /etc/nginx/nginx.conf
+  ansible.builtin.template:
+    src: "{{ template_nginx_src }}"
+    dest: "{{ template_nginx_dest }}"
+  notify: restart nginx docker
+  
+- name: restart nginx docker
+  docker_container:
+    name: "{{ name_docker_nginx }}"
+    state: started
+    image: nginx
+    pull: true
+    networks_cli_compatible: yes
+    networks:
+      - name: "{{ network_ansible_web }}"
+    volumes:
+      - "{{ volumes_nginx }}"
+    ports:
+      - "{{ portn_nginx }}"

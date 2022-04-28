@@ -1,0 +1,7 @@
+---
+template_nginx_src:     "roles/start_nginx_balancing/templates/nginx.conf.j2"
+template_nginx_dest:    "/home/Jenkins/nginx.conf"
+volumes_nginx:          "/home/Jenkins/nginx.conf:/etc/nginx/nginx.conf"
+name_docker_nginx:      "nginx_balance"
+portn_nginx:            "8080:80"
+balance_host_ip:        "192.168.100.72"

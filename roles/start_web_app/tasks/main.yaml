@@ -1,0 +1,26 @@
+---
+- include_vars: ../../create_net_docker/vars/main.yaml
+
+- name: Run tasks install and start docker
+  include_role:
+    name: install_and_start_docker
+
+- name: Run tasks create network
+  include_role:
+    name: create_net_docker
+
+- name: Log into Git Hub Packeges
+  ansible.builtin.shell: echo "{{ token_dockerhub }}" | docker login ghcr.io -u "{{ login_dockerhub }}" --password-stdin
+
+- name: Run web app container
+  docker_container:
+    name: "web_app_{{ item }}"
+    state: started
+    image: "{{ docker_image_wep_app }}"
+    pull: true
+    networks_cli_compatible: yes
+    networks:
+      - name: "{{ network_ansible_web }}"
+    ports:
+      - "{{ item }}:5000"
+  loop: "{{ docker_ports }}"

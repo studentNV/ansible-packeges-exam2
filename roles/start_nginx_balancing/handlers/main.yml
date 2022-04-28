@@ -1,0 +1,14 @@
+- name: restart nginx docker
+  docker_container:
+    name: "{{ name_docker_nginx }}"
+    state: started
+    image: nginx
+    pull: true
+    networks_cli_compatible: yes
+    restart: yes
+    networks:
+      - name: "{{ network_ansible_web }}"
+    volumes:
+      - "{{ volumes_nginx }}"
+    ports:
+      - "{{ portn_nginx }}"

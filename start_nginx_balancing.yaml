@@ -1,0 +1,5 @@
+---
+- hosts: web-exam
+  become: yes
+  roles:
+    - start_nginx_balancing
